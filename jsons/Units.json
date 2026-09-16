@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Pemanah Beruntun",
+    "unitType": "Archery",
+    "uniqueTo": "Adasrep Federation",
+    "replaces": "Composite Bowman",
+    "movement": 2,
+    "strength": 10,
+    "rangedStrength": 15,
+    "range": 2,
+    "cost": 75,
+    "requiredTech": "Construction",
+    "obsoleteTech": "Machinery",
+    "upgradesTo": "Crossbowman",
+    "promotions": [
+      "Rapid Fire",
+      "Hold the Line"
+    ],
+    "attackSound": "arrow",
+    "civilopediaText": [
+      {
+        "text": "A unique Adasrep Federation ranged unit specializing in rapid, sustained fire and holding the line."
+      }
+    ]
+  }
+]
