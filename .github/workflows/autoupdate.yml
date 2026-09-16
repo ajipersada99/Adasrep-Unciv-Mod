@@ -20,37 +20,83 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: oxipng image compression
+      - name: Download oxipng
+        shell: bash
         run: |
-          oxipng_url=$(curl -sL https://api.github.com/repos/shssoichiro/oxipng/releases/latest | grep -o "http.*x86_64-unknown-linux-gnu.tar.gz")
-          wget -O oxipng.tar.gz "$oxipng_url"
-          tar -xvzf oxipng.tar.gz
-          rm oxipng.tar.gz
+          set -e
 
-          oxipng_file=$(find oxipng* | grep "/oxipng")
-          find Images* -type f -regex ".*png" | xargs -d '\n' "$oxipng_file" --opt max --strip all
+          oxipng_url=$(curl -fsSL \
+            https://api.github.com/repos/shssoichiro/oxipng/releases/latest \
+            | grep '"browser_download_url":' \
+            | grep 'x86_64-unknown-linux-gnu.tar.gz' \
+            | cut -d '"' -f 4 \
+            | head -n 1)
 
-          rm -rf $(ls -1 | grep oxipng)
+          if [ -z "$oxipng_url" ]; then
+            echo "Failed to find oxipng Linux x86_64 release."
+            exit 1
+          fi
 
-      - uses: actions/setup-java@v4
+          wget -q -O oxipng.tar.gz "$oxipng_url"
+          tar -xzf oxipng.tar.gz
+
+          oxipng_file=$(find . -type f -name oxipng -perm -111 | head -n 1)
+
+          if [ -z "$oxipng_file" ]; then
+            echo "oxipng executable not found."
+            exit 1
+          fi
+
+          echo "oxipng_file=$oxipng_file" >> "$GITHUB_ENV"
+
+      - name: Compress PNG images
+        shell: bash
+        run: |
+          set -e
+
+          if [ ! -d "Images" ]; then
+            echo "Images directory not found."
+            exit 1
+          fi
+
+          find Images -type f \( -iname "*.png" \) \
+            -exec "$oxipng_file" -o 4 --strip safe {} +
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
         with:
           distribution: "temurin"
           java-version: "17"
 
       - name: Autoupdate
-        continue-on-error: true
+        shell: bash
         run: |
-          unciv_url=$(curl -s https://api.github.com/repos/yairm210/unciv/releases/latest | grep -o "http.*Unciv.jar")
+          set -e
+
+          unciv_url=$(curl -fsSL \
+            https://api.github.com/repos/yairm210/Unciv/releases/latest \
+            | grep '"browser_download_url":' \
+            | grep 'Unciv.jar' \
+            | cut -d '"' -f 4 \
+            | head -n 1)
+
+          if [ -z "$unciv_url" ]; then
+            echo "Failed to find Unciv.jar."
+            exit 1
+          fi
+
           wget -q -O Unciv.jar "$unciv_url"
+
           java -jar Unciv.jar mod-ci
 
       - name: Remove Unciv executable
-        run: rm Unciv.jar
+        if: always()
+        run: rm -f Unciv.jar
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v7
         with:
-          commit-message: Autoupdate
+          commit-message: "Autoupdate"
           title: "Autoupdate Unciv mod"
-          body: "Automatically update the Unciv mod files and texture atlas."
-          branch: autoupdate
+          body: "Automatically update the Unciv mod."
+          branch: "autoupdate"
