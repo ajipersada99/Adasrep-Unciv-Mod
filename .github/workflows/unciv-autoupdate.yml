@@ -1,0 +1,97 @@
+name: Unciv Autoupdate
+
+on:
+  schedule:
+    - cron: "30 2 * * *"
+
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  unciv-lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Compress PNG images with oxipng
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          tmp_dir="$(mktemp -d)"
+          trap 'rm -rf "$tmp_dir"' EXIT
+
+          oxipng_url="$(
+            curl -fsSL https://api.github.com/repos/shssoichiro/oxipng/releases/latest |
+            jq -r '.assets[]
+              | select(.name | test("x86_64-unknown-linux-gnu\.tar\.gz$"))
+              | .browser_download_url' |
+            head -n 1
+          )"
+
+          if [ -z "$oxipng_url" ] || [ "$oxipng_url" = "null" ]; then
+            echo "ERROR: Could not find the oxipng Linux x86_64 release."
+            exit 1
+          fi
+
+          curl -fL "$oxipng_url" -o "$tmp_dir/oxipng.tar.gz"
+          tar -xzf "$tmp_dir/oxipng.tar.gz" -C "$tmp_dir"
+
+          oxipng_file="$(find "$tmp_dir" -type f -name oxipng -print -quit)"
+
+          if [ -z "$oxipng_file" ]; then
+            echo "ERROR: oxipng executable was not found."
+            exit 1
+          fi
+
+          chmod +x "$oxipng_file"
+
+          find Images -type f -iname "*.png" -print0 |
+            xargs -0 -r "$oxipng_file" --opt max --strip all --alpha
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Run Unciv mod-ci
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          unciv_url="$(
+            curl -fsSL https://api.github.com/repos/yairm210/Unciv/releases/latest |
+            jq -r '.assets[]
+              | select(.name == "Unciv.jar")
+              | .browser_download_url' |
+            head -n 1
+          )"
+
+          if [ -z "$unciv_url" ] || [ "$unciv_url" = "null" ]; then
+            echo "ERROR: Could not find Unciv.jar in the latest Unciv release."
+            exit 1
+          fi
+
+          curl -fL "$unciv_url" -o Unciv.jar
+          java -jar Unciv.jar mod-ci
+
+      - name: Remove Unciv executable
+        if: always()
+        shell: bash
+        run: rm -f Unciv.jar
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: Autoupdate
+          title: "Autoupdate Unciv mod"
+          body: "Automatically update the Unciv mod."
+          branch: autoupdate
