@@ -20,7 +20,7 @@
         "text": "A fortified military training complex of the Adasrep Federation. Newly trained military units begin with 8,500 XP and receive the designated promotions."
       }
     ]
-  }
+  },
   {
     "name": "Balai Kesejahteraan",
     "cost": 300,
@@ -28,9 +28,28 @@
     "maintenance": 5,
     "requiredTech": "Archery",
     "uniques": [
-        "[-50]% Unhappiness from the number of cities",
-        "[-50]% Unhappiness from [Population] [in all cities]",
-        "[5] Happiness from each type of luxury resource"
+      "[-50]% Unhappiness from the number of cities",
+      "[-50]% Unhappiness from [Population] [in all cities]",
+      "[5] Happiness from each type of luxury resource"
     ]
-}
+  },
+  {
+    "name": "Madrasah",
+    "cost": 185,
+    "isWonder": true,
+    "maintenance": 0,
+    "requiredTech": "Archery",
+    "percentStatBonus": {
+      "faith": 10
+    },
+    "uniques": [
+      "Free [Great Prophet] appears",
+      "All newly-trained [Great Prophet] units [in this city] receive the [Orang Suci] promotion"
+    ],
+    "civilopediaText": [
+      {
+        "text": "A center of religious learning that strengthens Faith and trains Great Prophets in the city."
+      }
+    ]
+  }
 ]
