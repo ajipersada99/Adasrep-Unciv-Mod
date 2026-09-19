@@ -21,4 +21,16 @@
       }
     ]
   }
+  {
+    "name": "Balai Kesejahteraan",
+    "cost": 300,
+    "hurryCostModifier": 25,
+    "maintenance": 5,
+    "requiredTech": "Archery",
+    "uniques": [
+        "[-50]% Unhappiness from the number of cities",
+        "[-50]% Unhappiness from [Population] [in all cities]",
+        "[5] Happiness from each type of luxury resource"
+    ]
+}
 ]
