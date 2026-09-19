@@ -1,10 +1,9 @@
 [
   {
-    "name": "Adasrep Federation",
-    "leaderName": "Persada",
+    "name": "Adasrep",
+    "leaderName": "Adzi",
     "preferredVictoryType": "Domination",
-    "uniqueName": "Omnipotent Policy",
-    "uniqueText": "Kebijakan yang bijaksana membawa kejayaan.",
+    "uniqueName": "Omnipotent Policy", 
     "uniques": [
       "[+1000]% [Production] [in all cities]",
       "[+1000]% [Culture] [in all cities]",
@@ -16,9 +15,9 @@
     ],
     "cities": [
     "Centralia",
-    "Nusantara",
     "Bhineka",
-    "Madya",
+    "Astana",
+    "Dharma",
     "Sasana",
     "Arcanagara",
     "Karsa",
