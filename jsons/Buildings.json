@@ -43,9 +43,10 @@
       "faith": 10
     },
     "uniques": [
-      "Free [Great Prophet] appears",
-      "All newly-trained [Great Prophet] units [in this city] receive the [Orang Suci] promotion"
-    ],
+  "Free [Great Prophet] appears",
+  "All newly-trained [Great Prophet] units [in this city] receive the [Orang Suci] promotion",
+  "[+200]% Natural religion spread [in all cities]"
+],
     "civilopediaText": [
       {
         "text": "A center of religious learning that strengthens Faith and trains Great Prophets in the city."
