@@ -1,7 +1,7 @@
 [
   {
     "name": "Adasrep Federation",
-    "leaderName": "Aji",
+    "leaderName": "Persada",
     "preferredVictoryType": "Domination",
     "uniqueName": "Omnipotent Policy",
     "uniqueText": "Kebijakan yang bijaksana membawa kejayaan.",
@@ -15,25 +15,37 @@
       "[+100]% [Gold] [in all cities]"
     ],
     "cities": [
-      "Adasrep",
-      "Persada",
-      "Federation",
-      "Nusantara",
-      "Aurelia",
-      "Arcapolis",
-      "Aji",
-      "Kencana"
-    ],
-    "innerColor": [
-      20,
-      20,
-      20
-    ],
-    "outerColor": [
-      220,
-      220,
-      220
-    ],
+    "Centralia",
+    "Nusantara",
+    "Bhineka",
+    "Madya",
+    "Sasana",
+    "Arcanagara",
+    "Karsa",
+    "Kencana",
+    "Mahardika",
+    "Cakrawala",
+    "Nusadaya",
+    "Arunika",
+    "Jayakarta",
+    "Wiranata",
+    "Samudera",
+    "Ratnadipa",
+    "Suryanegara",
+    "Adinata",
+    "Pradipta",
+    "Raya"
+],
+"innerColor": [
+    225,
+    180,
+    0
+],
+"outerColor": [
+    10,
+    102,
+    204
+],
     "civilopediaText": [
       {
         "text": "Adasrep Federation is defined by the Omnipotent Policy: wise policy brings glory."
