@@ -1,19 +1,125 @@
 [
-  {
-    "columnNumber": 4,
-    "era": "Classical era",
-    "techCost": 3500,
-    "buildingCost": 300,
-    "wonderCost": 500,
-    "techs": [
-      {
-        "name": "Akulturasi Masyarakat",
-        "row": 5,
-        "prerequisites": [
-          "Horseback Riding"
-        ],
-        "quote": "Masyarakat berkembang melalui pertemuan, kerja sama, dan perpaduan berbagai kebudayaan."
-      }
-    ]
-  }
+    {
+        "columnNumber": 4,
+        "era": "Classical era",
+        "techCost": 175,
+        "buildingCost": 100,
+        "wonderCost": 250,
+        "techs": [
+            {
+                "name": "Akulturasi Masyarakat",
+                "row": 5,
+                "prerequisites": [
+                    "Horseback Riding"
+                ],
+                "quote": "Masyarakat berkembang melalui pertemuan, kerja sama, dan perpaduan berbagai kebudayaan."
+            }
+        ]
+    },
+    {
+        "columnNumber": 5,
+        "era": "Medieval era",
+        "techCost": 250,
+        "buildingCost": 150,
+        "wonderCost": 300,
+        "techs": [
+            {
+                "name": "Theology",
+                "row": 2,
+                "prerequisites": [
+                    "Philosophy",
+                    "Drama and Poetry",
+                    "Akulturasi Masyarakat"
+                ]
+            },
+            {
+                "name": "Civil Service",
+                "row": 5,
+                "prerequisites": [
+                    "Currency",
+                    "Horseback Riding",
+                    "Drama and Poetry",
+                    "Akulturasi Masyarakat"
+                ]
+            },
+            {
+                "name": "Guilds",
+                "row": 7,
+                "prerequisites": [
+                    "Currency",
+                    "Akulturasi Masyarakat"
+                ]
+            },
+            {
+                "name": "Metal Casting",
+                "row": 9,
+                "prerequisites": [
+                    "Engineering",
+                    "Iron Working",
+                    "Akulturasi Masyarakat"
+                ]
+            }
+        ]
+    },
+    {
+        "columnNumber": 6,
+        "era": "Medieval era",
+        "techCost": 275,
+        "buildingCost": 175,
+        "wonderCost": 350,
+        "techs": [
+            {
+                "name": "Compass",
+                "row": 1,
+                "prerequisites": [
+                    "Optics",
+                    "Theology",
+                    "Akulturasi Masyarakat"
+                ]
+            },
+            {
+                "name": "Education",
+                "row": 3,
+                "prerequisites": [
+                    "Theology",
+                    "Civil Service",
+                    "Akulturasi Masyarakat"
+                ]
+            },
+            {
+                "name": "Chivalry",
+                "row": 6,
+                "prerequisites": [
+                    "Civil Service",
+                    "Guilds",
+                    "Akulturasi Masyarakat"
+                ]
+            },
+            {
+                "name": "Machinery",
+                "row": 8,
+                "prerequisites": [
+                    "Guilds",
+                    "Engineering",
+                    "Akulturasi Masyarakat"
+                ]
+            },
+            {
+                "name": "Physics",
+                "row": 9,
+                "prerequisites": [
+                    "Metal Casting",
+                    "Akulturasi Masyarakat"
+                ]
+            },
+            {
+                "name": "Steel",
+                "row": 10,
+                "prerequisites": [
+                    "Metal Casting",
+                    "Akulturasi Masyarakat"
+                ]
+            }
+        ]
+    }
 ]
