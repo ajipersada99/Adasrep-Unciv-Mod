@@ -2,12 +2,12 @@
   {
     "name": "Rapid Fire",
     "uniques": [
-      "[3] Range",
-      "[8] additional attacks per turn"
+      "[5] Range",
+      "[10] additional attacks per turn"
     ],
     "civilopediaText": [
       {
-        "text": "Extends attack range and allows five additional attacks per turn."
+        "text": "Extends attack range and allows ten additional attacks per turn."
       }
     ]
   },
@@ -63,18 +63,6 @@
     "name": "Orang Suci",
     "uniques": [
       "<[25] additional time(s)> Can Spread Religion"
-    ]
-  }, 
-  {
-    "name": "World Destroyer",
-    "unitTypes": [
-      "Siege"
-    ],
-    "uniques": [
-      "[5] Movement",
-      "[5] Sight",
-      "[25] Range",
-      "[10] additional attacks per turn"
     ]
   }
 ]
