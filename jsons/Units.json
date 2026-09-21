@@ -1,46 +1,26 @@
 [
-  {
-    "name": "Pemanah Beruntun",
-    "unitType": "Archery",
-    "uniqueTo": "Adasrep Federation",
-    "replaces": "Composite Bowman",
-    "movement": 3,
-    "strength": 10,
-    "rangedStrength": 15,
-    "range": 3,
-    "cost": 75,
-    "requiredTech": "Construction",
-    "obsoleteTech": "Machinery",
-    "upgradesTo": "Crossbowman",
-    "promotions": [
-      "Rapid Fire",
-      "Hold the Line"
-    ],
-    "attackSound": "arrow",
-    "civilopediaText": [
-      {
-        "text": "A unique Adasrep Federation ranged unit specializing in rapid, sustained fire and holding the line."
-      }
-    ]
-  },
-  {
-    "name": "Armagedown",
-    "unitType": "Siege",
-    "movement": 3,
-    "strength": 100,
-    "rangedStrength": 500,
-    "range": 4,
-    "cost": 500,
-    "requiredTech": "Stealth",
-    "promotions": [
-        "World Destroyer"
-    ],
-    "uniques": [
-        "Consumes [5] [Uranium]",
-        "Can be purchased for [2000] [Gold] [in this city]",
-        "No defensive terrain bonus",
-        "Never appears as a Barbarian unit"
-    ],
-    "attackSound": "artillery"
-}
+    {
+        "name": "Pemanah Beruntun",
+        "unitType": "Archery",
+        "uniqueTo": "Adasrep Federation",
+        "replaces": "Composite Bowman",
+        "movement": 3,
+        "strength": 10,
+        "rangedStrength": 15,
+        "range": 3,
+        "cost": 75,
+        "requiredTech": "Construction",
+        "obsoleteTech": "Machinery",
+        "upgradesTo": "Crossbowman",
+        "promotions": [
+            "Rapid Fire",
+            "Hold the Line"
+        ],
+        "attackSound": "arrow",
+        "civilopediaText": [
+            {
+                "text": "A unique Adasrep Federation ranged unit."
+            }
+        ]
+    }
 ]
