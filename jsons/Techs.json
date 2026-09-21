@@ -2,9 +2,9 @@
     {
         "columnNumber": 4,
         "era": "Classical era",
-        "techCost": 175,
-        "buildingCost": 100,
-        "wonderCost": 250,
+        "techCost": 7000,
+        "buildingCost": 300,
+        "wonderCost": 500,
         "techs": [
             {
                 "name": "Akulturasi Masyarakat",
@@ -17,39 +17,121 @@
         ]
     },
     {
-        "name": "Theology",
-        "_mergeAction": {
-            "action": "TRY_INJECT"
-        },
-        "prerequisites": [
-            "Akulturasi Masyarakat"
+        "columnNumber": 5,
+        "era": "Medieval era",
+        "techCost": 275,
+        "buildingCost": 120,
+        "wonderCost": 300,
+        "techs": [
+            {
+                "name": "Theology",
+                "row": 2,
+                "_mergeAction": {
+                    "action": "TRY_INJECT"
+                },
+                "prerequisites": [
+                    "Akulturasi Masyarakat"
+                ]
+            },
+            {
+                "name": "Civil Service",
+                "row": 5,
+                "_mergeAction": {
+                    "action": "TRY_INJECT"
+                },
+                "prerequisites": [
+                    "Akulturasi Masyarakat"
+                ]
+            },
+            {
+                "name": "Guilds",
+                "row": 7,
+                "_mergeAction": {
+                    "action": "TRY_INJECT"
+                },
+                "prerequisites": [
+                    "Akulturasi Masyarakat"
+                ]
+            },
+            {
+                "name": "Metal Casting",
+                "row": 9,
+                "_mergeAction": {
+                    "action": "TRY_INJECT"
+                },
+                "prerequisites": [
+                    "Akulturasi Masyarakat"
+                ]
+            }
         ]
     },
     {
-        "name": "Civil Service",
-        "_mergeAction": {
-            "action": "TRY_INJECT"
-        },
-        "prerequisites": [
-            "Akulturasi Masyarakat"
-        ]
-    },
-    {
-        "name": "Guilds",
-        "_mergeAction": {
-            "action": "TRY_INJECT"
-        },
-        "prerequisites": [
-            "Akulturasi Masyarakat"
-        ]
-    },
-    {
-        "name": "Metal Casting",
-        "_mergeAction": {
-            "action": "TRY_INJECT"
-        },
-        "prerequisites": [
-            "Akulturasi Masyarakat"
+        "columnNumber": 6,
+        "era": "Medieval era",
+        "techCost": 485,
+        "buildingCost": 160,
+        "wonderCost": 400,
+        "techs": [
+            {
+                "name": "Compass",
+                "row": 1,
+                "_mergeAction": {
+                    "action": "TRY_INJECT"
+                },
+                "prerequisites": [
+                    "Akulturasi Masyarakat"
+                ]
+            },
+            {
+                "name": "Education",
+                "row": 3,
+                "_mergeAction": {
+                    "action": "TRY_INJECT"
+                },
+                "prerequisites": [
+                    "Akulturasi Masyarakat"
+                ]
+            },
+            {
+                "name": "Chivalry",
+                "row": 6,
+                "_mergeAction": {
+                    "action": "TRY_INJECT"
+                },
+                "prerequisites": [
+                    "Akulturasi Masyarakat"
+                ]
+            },
+            {
+                "name": "Machinery",
+                "row": 8,
+                "_mergeAction": {
+                    "action": "TRY_INJECT"
+                },
+                "prerequisites": [
+                    "Akulturasi Masyarakat"
+                ]
+            },
+            {
+                "name": "Physics",
+                "row": 9,
+                "_mergeAction": {
+                    "action": "TRY_INJECT"
+                },
+                "prerequisites": [
+                    "Akulturasi Masyarakat"
+                ]
+            },
+            {
+                "name": "Steel",
+                "row": 10,
+                "_mergeAction": {
+                    "action": "TRY_INJECT"
+                },
+                "prerequisites": [
+                    "Akulturasi Masyarakat"
+                ]
+            }
         ]
     }
 ]
