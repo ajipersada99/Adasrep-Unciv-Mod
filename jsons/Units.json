@@ -32,7 +32,6 @@
     "range": 4,
     "cost": 500000,
     "requiredTech": "Stealth",
-    "maintenanceCost": 10000,
     "promotions": [
       "World Destroyer"
     ],
