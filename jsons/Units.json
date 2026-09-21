@@ -33,13 +33,14 @@
     "cost": 500,
     "requiredTech": "Stealth",
     "promotions": [
-      "World Destroyer"
+        "World Destroyer"
     ],
     "uniques": [
-      "Consumes [5] [Uranium]",
-      "Can be purchased for [2000] [Gold] [in this city]",
-      "No defensive terrain bonus"
+        "Consumes [5] [Uranium]",
+        "Can be purchased for [2000] [Gold] [in this city]",
+        "No defensive terrain bonus",
+        "Never appears as a Barbarian unit"
     ],
     "attackSound": "artillery"
-  }
+}
 ]
