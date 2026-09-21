@@ -1,36 +1,55 @@
-{
-    "name": "Theology",
-    "row": 2,
-    "prerequisites": [
-        "Philosophy",
-        "Drama and Poetry",
-        "Akulturasi Masyarakat"
-    ]
-},
-{
-    "name": "Civil Service",
-    "row": 5,
-    "prerequisites": [
-        "Currency",
-        "Horseback Riding",
-        "Drama and Poetry",
-        "Akulturasi Masyarakat"
-    ]
-},
-{
-    "name": "Guilds",
-    "row": 7,
-    "prerequisites": [
-        "Currency",
-        "Akulturasi Masyarakat"
-    ]
-},
-{
-    "name": "Metal Casting",
-    "row": 9,
-    "prerequisites": [
-        "Engineering",
-        "Iron Working",
-        "Akulturasi Masyarakat"
-    ]
-}
+[
+    {
+        "columnNumber": 4,
+        "era": "Classical era",
+        "techCost": 175,
+        "buildingCost": 100,
+        "wonderCost": 250,
+        "techs": [
+            {
+                "name": "Akulturasi Masyarakat",
+                "row": 5,
+                "prerequisites": [
+                    "Horseback Riding"
+                ],
+                "quote": "Masyarakat berkembang melalui pertemuan, kerja sama, dan perpaduan berbagai kebudayaan."
+            }
+        ]
+    },
+    {
+        "name": "Theology",
+        "_mergeAction": {
+            "action": "TRY_INJECT"
+        },
+        "prerequisites": [
+            "Akulturasi Masyarakat"
+        ]
+    },
+    {
+        "name": "Civil Service",
+        "_mergeAction": {
+            "action": "TRY_INJECT"
+        },
+        "prerequisites": [
+            "Akulturasi Masyarakat"
+        ]
+    },
+    {
+        "name": "Guilds",
+        "_mergeAction": {
+            "action": "TRY_INJECT"
+        },
+        "prerequisites": [
+            "Akulturasi Masyarakat"
+        ]
+    },
+    {
+        "name": "Metal Casting",
+        "_mergeAction": {
+            "action": "TRY_INJECT"
+        },
+        "prerequisites": [
+            "Akulturasi Masyarakat"
+        ]
+    }
+]
