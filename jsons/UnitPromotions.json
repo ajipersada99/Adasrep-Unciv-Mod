@@ -15,7 +15,7 @@
     "name": "Hold the Line",
     "uniques": [
       "[+200]% Strength <when attacking>",
-      "[+400]% Strength <when defending>"
+      "[+500]% Strength <when defending>"
     ],
     "civilopediaText": [
       {
@@ -26,7 +26,7 @@
   {
     "name": "Command",
     "uniques": [
-      "[+400]% Strength <when attacking>",
+      "[+500]% Strength <when attacking>",
       "[+200]% Strength <when defending>"
     ],
     "civilopediaText": [
@@ -71,10 +71,10 @@
       "Siege"
     ],
     "uniques": [
-      "[25] Movement",
-      "[25] Sight",
+      "[5] Movement",
+      "[5] Sight",
       "[25] Range",
-      "[25] additional attacks per turn"
+      "[10] additional attacks per turn"
     ]
   }
 ]
