@@ -55,7 +55,7 @@
     "cityStrength": 100,
     "cityHealth": 1000,
     "maintenance": 10000,
-    "requiredTech": "Fisika Partikel",
+    "requiredTech": "Particle Physics",
     "civilopediaText": [
       {
         "text": "A powerful energy particle shield that provides extraordinary protection to the city."
