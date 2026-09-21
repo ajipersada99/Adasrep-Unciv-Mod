@@ -1,0 +1,19 @@
+[
+  {
+    "columnNumber": 4,
+    "era": "Classical era",
+    "techCost": 3500,
+    "buildingCost": 300,
+    "wonderCost": 500,
+    "techs": [
+      {
+        "name": "Akulturasi Masyarakat",
+        "row": 5,
+        "prerequisites": [
+          "Horseback Riding"
+        ],
+        "quote": "Masyarakat berkembang melalui pertemuan, kerja sama, dan perpaduan berbagai kebudayaan."
+      }
+    ]
+  }
+]
