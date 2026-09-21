@@ -1,6 +1,18 @@
 {
-  "isBaseRuleset": false,
-  "author": "Aji Persada",
-  "modUrl": "",
-  "defaultBranch": "master"
+    "isBaseRuleset": false,
+    "author": "Aji Persada",
+    "modUrl": "",
+    "defaultBranch": "master",
+    "techsToRemove": [
+        "Theology",
+        "Civil Service",
+        "Guilds",
+        "Metal Casting",
+        "Compass",
+        "Education",
+        "Chivalry",
+        "Machinery",
+        "Physics",
+        "Steel"
+    ]
 }
