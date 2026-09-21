@@ -30,14 +30,14 @@
     "strength": 100,
     "rangedStrength": 500,
     "range": 4,
-    "cost": 500000,
+    "cost": 500,
     "requiredTech": "Stealth",
     "promotions": [
       "World Destroyer"
     ],
     "uniques": [
       "Consumes [5] [Uranium]",
-      "Can be purchased for [2000000] [Gold] [in this city]",
+      "Can be purchased for [2000] [Gold] [in this city]",
       "No defensive terrain bonus"
     ],
     "attackSound": "artillery"
