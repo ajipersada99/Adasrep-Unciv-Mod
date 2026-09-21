@@ -26,10 +26,10 @@
   {
     "name": "Armagedown",
     "unitType": "Siege",
-    "movement": 2,
+    "movement": 3,
     "strength": 100,
     "rangedStrength": 500,
-    "range": 3,
+    "range": 4,
     "cost": 500000,
     "requiredTech": "Stealth",
     "maintenanceCost": 10000,
