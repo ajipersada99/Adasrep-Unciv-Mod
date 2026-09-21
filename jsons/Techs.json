@@ -12,7 +12,7 @@
                 "prerequisites": [
                     "Horseback Riding"
                 ],
-                "quote": "Masyarakat berkembang melalui pertemuan, kerja sama, dan perpaduan berbagai kebudayaan."
+                "quote": "Masyarakat berkembang melalui pertemuan dan perpaduan budaya."
             }
         ]
     },
@@ -30,16 +30,21 @@
                     "action": "TRY_INJECT"
                 },
                 "prerequisites": [
+                    "Philosophy",
+                    "Drama and Poetry",
                     "Akulturasi Masyarakat"
                 ]
             },
             {
                 "name": "Civil Service",
-                "row": 5,
+                "row": 4,
                 "_mergeAction": {
                     "action": "TRY_INJECT"
                 },
                 "prerequisites": [
+                    "Currency",
+                    "Horseback Riding",
+                    "Drama and Poetry",
                     "Akulturasi Masyarakat"
                 ]
             },
@@ -50,6 +55,7 @@
                     "action": "TRY_INJECT"
                 },
                 "prerequisites": [
+                    "Currency",
                     "Akulturasi Masyarakat"
                 ]
             },
@@ -60,6 +66,8 @@
                     "action": "TRY_INJECT"
                 },
                 "prerequisites": [
+                    "Engineering",
+                    "Iron Working",
                     "Akulturasi Masyarakat"
                 ]
             }
@@ -79,7 +87,8 @@
                     "action": "TRY_INJECT"
                 },
                 "prerequisites": [
-                    "Akulturasi Masyarakat"
+                    "Optics",
+                    "Theology"
                 ]
             },
             {
@@ -89,7 +98,8 @@
                     "action": "TRY_INJECT"
                 },
                 "prerequisites": [
-                    "Akulturasi Masyarakat"
+                    "Theology",
+                    "Civil Service"
                 ]
             },
             {
@@ -99,7 +109,8 @@
                     "action": "TRY_INJECT"
                 },
                 "prerequisites": [
-                    "Akulturasi Masyarakat"
+                    "Civil Service",
+                    "Guilds"
                 ]
             },
             {
@@ -109,7 +120,8 @@
                     "action": "TRY_INJECT"
                 },
                 "prerequisites": [
-                    "Akulturasi Masyarakat"
+                    "Guilds",
+                    "Engineering"
                 ]
             },
             {
@@ -119,7 +131,7 @@
                     "action": "TRY_INJECT"
                 },
                 "prerequisites": [
-                    "Akulturasi Masyarakat"
+                    "Metal Casting"
                 ]
             },
             {
@@ -129,7 +141,7 @@
                     "action": "TRY_INJECT"
                 },
                 "prerequisites": [
-                    "Akulturasi Masyarakat"
+                    "Metal Casting"
                 ]
             }
         ]
