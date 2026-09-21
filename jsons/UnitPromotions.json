@@ -3,7 +3,7 @@
     "name": "Rapid Fire",
     "uniques": [
       "[3] Range",
-      "[5] additional attacks per turn"
+      "[8] additional attacks per turn"
     ],
     "civilopediaText": [
       {
@@ -15,7 +15,7 @@
     "name": "Hold the Line",
     "uniques": [
       "[+200]% Strength <when attacking>",
-      "[+300]% Strength <when defending>"
+      "[+400]% Strength <when defending>"
     ],
     "civilopediaText": [
       {
@@ -26,8 +26,8 @@
   {
     "name": "Command",
     "uniques": [
-      "[+200]% Strength <when attacking>",
-      "[+300]% Strength <when defending>"
+      "[+400]% Strength <when attacking>",
+      "[+200]% Strength <when defending>"
     ],
     "civilopediaText": [
       {
@@ -39,11 +39,11 @@
     "name": "Conquer",
     "uniques": [
       "Heals [50] damage if it kills a unit",
-      "May capture killed [Military] units <with [75]% chance>"
+      "May capture killed [Military] units <with [85]% chance>"
     ],
     "civilopediaText": [
       {
-        "text": "Conquerors recover 50 HP after a kill and have a 75% chance to capture a killed military unit."
+        "text": "Conquerors recover 50 HP after a kill and have a 85% chance to capture a killed military unit."
       }
     ]
   },
@@ -63,6 +63,22 @@
     "name": "Orang Suci",
     "uniques": [
       "<[25] additional time(s)> Can Spread Religion"
+    ]
+  }, 
+    {
+    "name": "Promotion Terakhir",
+    ...
+  },
+  {
+    "name": "World Destroyer",
+    "unitTypes": [
+      "Siege"
+    ],
+    "uniques": [
+      "[25] Movement",
+      "[25] Sight",
+      "[25] Range",
+      "[25] additional attacks per turn"
     ]
   }
 ]
