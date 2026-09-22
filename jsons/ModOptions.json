@@ -1,6 +1,9 @@
 {
-    "isBaseRuleset": false,
-    "author": "Aji Persada",
-    "modUrl": "",
-    "defaultBranch": "master"
+  "isBaseRuleset": false,
+  "author": "Aji Persada",
+  "modUrl": "",
+  "defaultBranch": "master",
+  "buildingsToRemove": [
+    "Baháʼí Lotus Temple"
+  ]
 }
