@@ -107,5 +107,11 @@
     "happiness": 10,
     "maintenance": 50000,
     "requiredTech": "Akulturasi Masyarakat"
+  },
+  {
+    "name": "Baháʼí Lotus Temple",
+    "_mergeAction": {
+      "action": "REMOVE"
+    }
   }
 ]
