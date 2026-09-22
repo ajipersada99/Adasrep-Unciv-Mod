@@ -44,7 +44,7 @@
       }
     ],
     "uniques": [
-      "Gain [50] [Gold]",
+      "Gain [500] [Gold]",
       "[+5 Happiness] [in capital]",
       "[+5 Culture] [in capital]",
       "[+5 Science] [in capital]",
@@ -95,7 +95,8 @@
           "Tuntutan"
         ],
         "uniques": [
-          "[Military] units gain the [Nationalism] promotion"
+          "[Military] units gain the [Nationalism] promotion",
+          "Free [Khan] appears"
         ]
       },
       {
@@ -106,7 +107,8 @@
           "Keamanan Nasional"
         ],
         "uniques": [
-          "[Military] units gain the [Intervention] promotion"
+          "[Military] units gain the [Intervention] promotion",
+          "Free [Great General] appears"
         ]
       },
       {
