@@ -113,6 +113,7 @@
     "_mergeAction": {
       "action": "REMOVE_FIELD"
     },
+    "requiredTech": "Pharmaceuticals",
     "uniques": [
       "Only available <in cities not following a [your] religion>"
     ]
