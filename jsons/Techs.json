@@ -46,6 +46,10 @@
                     "Horseback Riding",
                     "Drama and Poetry",
                     "Akulturasi Masyarakat"
+                ],
+                "uniques": [
+                    "Enables Open Borders agreements <Civilopedia link [Tutorials/Open Borders]>",
+                    "[+100]% weight to this choice for AI decisions"
                 ]
             },
             {
@@ -57,6 +61,9 @@
                 "prerequisites": [
                     "Currency",
                     "Akulturasi Masyarakat"
+                ],
+                "uniques": [
+                    "Enables conversion of city production to [Gold]"
                 ]
             },
             {
@@ -69,6 +76,9 @@
                     "Engineering",
                     "Iron Working",
                     "Akulturasi Masyarakat"
+                ],
+                "uniques": [
+                    "[+100]% weight to this choice for AI decisions"
                 ]
             }
         ]
@@ -89,6 +99,9 @@
                 "prerequisites": [
                     "Optics",
                     "Theology"
+                ],
+                "uniques": [
+                    "[-50]% weight to this choice for AI decisions"
                 ]
             },
             {
@@ -100,6 +113,11 @@
                 "prerequisites": [
                     "Theology",
                     "Civil Service"
+                ],
+                "uniques": [
+                    "Enables conversion of city production to [Science]",
+                    "Enables Research agreements <Civilopedia link [Tutorials/Research Agreements]>",
+                    "[+100]% weight to this choice for AI decisions"
                 ]
             },
             {
@@ -111,6 +129,9 @@
                 "prerequisites": [
                     "Civil Service",
                     "Guilds"
+                ],
+                "uniques": [
+                    "Enables Defensive Pacts <Civilopedia link [Tutorials/Defensive Pacts]>"
                 ]
             },
             {
@@ -122,6 +143,9 @@
                 "prerequisites": [
                     "Guilds",
                     "Engineering"
+                ],
+                "uniques": [
+                    "Improves movement speed on roads"
                 ]
             },
             {
@@ -142,6 +166,9 @@
                 },
                 "prerequisites": [
                     "Metal Casting"
+                ],
+                "uniques": [
+                    "[-50]% weight to this choice for AI decisions"
                 ]
             }
         ]
