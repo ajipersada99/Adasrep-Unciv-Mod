@@ -8,8 +8,8 @@
         "row": 1,
         "column": 2,
         "uniques": [
-          "[+10]% Food [in all cities]",
-          "[+10]% Gold [in all cities]"
+          "[+10]% [Food] [in all cities]",
+          "[+10]% [Gold] [in all cities]"
         ]
       },
       {
@@ -20,8 +20,8 @@
           "Kehidupan"
         ],
         "uniques": [
-          "[+10]% Production [in all cities]",
-          "[+10] Happiness [in all cities]"
+          "[+10]% [Production] [in all cities]",
+          "[+10 Happiness] [in all cities]"
         ]
       },
       {
@@ -32,8 +32,8 @@
           "Keberlangsungan"
         ],
         "uniques": [
-          "[+10]% Culture [in all cities]",
-          "[+10]% Science [in all cities]"
+          "[+10]% [Culture] [in all cities]",
+          "[+10]% [Science] [in all cities]"
         ]
       },
       {
@@ -44,12 +44,12 @@
       }
     ],
     "uniques": [
-      "[+50] Gold [in capital]",
-      "[+5] Happiness [in capital]",
-      "[+5] Culture [in capital]",
-      "[+5] Science [in capital]",
-      "[+5] Production [in capital]",
-      "[+5] Food [in capital]"
+      "Gain [50] [Gold]",
+      "[+5 Happiness] [in capital]",
+      "[+5 Culture] [in capital]",
+      "[+5 Science] [in capital]",
+      "[+5 Production] [in capital]",
+      "[+5 Food] [in capital]"
     ]
   },
   {
@@ -61,8 +61,8 @@
         "row": 1,
         "column": 2,
         "uniques": [
-          "[+100]% Culture [in all cities]",
-          "[+100]% Science [in all cities]"
+          "[+100]% [Culture] [in all cities]",
+          "[+100]% [Science] [in all cities]"
         ]
       },
       {
@@ -73,7 +73,7 @@
           "Sosial Media"
         ],
         "uniques": [
-          "[+25] Happiness [in all cities]"
+          "[+100 Happiness] [in all cities]"
         ]
       },
       {
@@ -113,17 +113,18 @@
         "name": "Digital World Complete",
         "uniques": [
           "[+50]% Golden Age length",
+          "Empire enters golden age",
           "[+100]% Strength <for [Military] units> <during a Golden Age>"
         ]
       }
     ],
     "uniques": [
-      "[+10]% Food [in capital]",
-      "[+10]% Production [in capital]",
-      "[+10]% Gold [in capital]",
-      "[+10]% Culture [in capital]",
-      "[+10]% Science [in capital]",
-      "[+10]% Faith [in capital]"
+      "[+10]% [Food] [in capital]",
+      "[+10]% [Production] [in capital]",
+      "[+10]% [Gold] [in capital]",
+      "[+10]% [Culture] [in capital]",
+      "[+10]% [Science] [in capital]",
+      "[+10]% [Faith] [in capital]"
     ]
   }
 ]
