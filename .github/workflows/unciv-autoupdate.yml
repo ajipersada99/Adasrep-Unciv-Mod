@@ -1,7 +1,12 @@
 name: Unciv Autoupdate
 
 on:
+  push:
+    branches:
+      - main
+
   workflow_dispatch:
+
   schedule:
     - cron: "30 2 * * *"
 
@@ -36,21 +41,36 @@ jobs:
           set -euo pipefail
 
           OXIPNG_URL="$(
-            curl -fsSL --retry 3 --retry-delay 2               -H "Accept: application/vnd.github+json"               https://api.github.com/repos/shssoichiro/oxipng/releases/latest |
-            jq -r '.assets[] | select(.name | test("x86_64-unknown-linux-gnu\\.tar\\.gz$")) | .browser_download_url' |
-            head -n 1
+            curl -fsSL --retry 3 --retry-delay 2 \
+              https://api.github.com/repos/shssoichiro/oxipng/releases/latest \
+            | jq -r '
+                .assets[]
+                | select(.name | test("x86_64-unknown-linux-gnu.tar.gz$"))
+                | .browser_download_url
+              ' \
+            | head -n 1
           )"
 
           if [ -z "$OXIPNG_URL" ] || [ "$OXIPNG_URL" = "null" ]; then
-            echo "::error::Could not find the Linux x86_64 oxipng release."
+            echo "::error::Could not find oxipng Linux x86_64 release."
             exit 1
           fi
 
           mkdir -p "$RUNNER_TEMP/oxipng"
-          curl -fL --retry 3 --retry-delay 2 "$OXIPNG_URL" -o "$RUNNER_TEMP/oxipng/oxipng.tar.gz"
-          tar -xzf "$RUNNER_TEMP/oxipng/oxipng.tar.gz" -C "$RUNNER_TEMP/oxipng"
 
-          OXIPNG_BIN="$(find "$RUNNER_TEMP/oxipng" -type f -name oxipng -print -quit)"
+          curl -fL --retry 3 --retry-delay 2 \
+            "$OXIPNG_URL" \
+            -o "$RUNNER_TEMP/oxipng/oxipng.tar.gz"
+
+          tar -xzf "$RUNNER_TEMP/oxipng/oxipng.tar.gz" \
+            -C "$RUNNER_TEMP/oxipng"
+
+          OXIPNG_BIN="$(
+            find "$RUNNER_TEMP/oxipng" \
+              -type f \
+              -name oxipng \
+              | head -n 1
+          )"
 
           if [ -z "$OXIPNG_BIN" ]; then
             echo "::error::oxipng executable was not found."
@@ -58,6 +78,7 @@ jobs:
           fi
 
           chmod +x "$OXIPNG_BIN"
+
           echo "OXIPNG_BIN=$OXIPNG_BIN" >> "$GITHUB_ENV"
 
       - name: Compress PNG images
@@ -70,8 +91,14 @@ jobs:
             exit 1
           fi
 
-          find Images -type f -iname "*.png" -print0 |
-            xargs -0 -r "$OXIPNG_BIN" --opt max --strip all --alpha
+          find Images \
+            -type f \
+            -iname "*.png" \
+            -print0 \
+          | xargs -0 -r "$OXIPNG_BIN" \
+              --opt max \
+              --strip all \
+              --alpha
 
       - name: Download latest Unciv.jar
         shell: bash
@@ -79,40 +106,104 @@ jobs:
           set -euo pipefail
 
           UNCIV_URL="$(
-            curl -fsSL --retry 3 --retry-delay 2               -H "Accept: application/vnd.github+json"               https://api.github.com/repos/yairm210/Unciv/releases/latest |
-            jq -r '.assets[] | select(.name == "Unciv.jar") | .browser_download_url' |
-            head -n 1
+            curl -fsSL --retry 3 --retry-delay 2 \
+              https://api.github.com/repos/yairm210/Unciv/releases/latest \
+            | jq -r '
+                .assets[]
+                | select(.name == "Unciv.jar")
+                | .browser_download_url
+              ' \
+            | head -n 1
           )"
 
           if [ -z "$UNCIV_URL" ] || [ "$UNCIV_URL" = "null" ]; then
-            echo "::error::Unciv.jar was not found in the latest Unciv release."
+            echo "::error::Unciv.jar was not found."
             exit 1
           fi
 
-          curl -fL --retry 3 --retry-delay 2 "$UNCIV_URL" -o Unciv.jar
+          curl -fL --retry 3 --retry-delay 2 \
+            "$UNCIV_URL" \
+            -o Unciv.jar
+
           test -s Unciv.jar
 
-      - name: Run Unciv mod-ci
-        continue-on-error: true
+      - name: Pack and validate Unciv mod
         shell: bash
         run: |
+          set -euo pipefail
+
           java -jar Unciv.jar mod-ci
+
+      - name: Verify required unit icons in atlas
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [ ! -f "game.atlas" ]; then
+            echo "::error::game.atlas was not generated."
+            exit 1
+          fi
+
+          if [ ! -f "game.png" ]; then
+            echo "::error::game.png was not generated."
+            exit 1
+          fi
+
+          echo "Checking Pemanah Beruntun..."
+          if ! grep -Fq "UnitIcons/Pemanah Beruntun" game.atlas; then
+            echo "::error::UnitIcons/Pemanah Beruntun is missing from game.atlas."
+            exit 1
+          fi
+
+          echo "Checking Prabu..."
+          if ! grep -Fq "UnitIcons/Prabu" game.atlas; then
+            echo "::error::UnitIcons/Prabu is missing from game.atlas."
+            exit 1
+          fi
+
+          echo "========================================"
+          echo "Required unit icons found in game.atlas:"
+          echo "- UnitIcons/Pemanah Beruntun"
+          echo "- UnitIcons/Prabu"
+          echo "========================================"
+
+      - name: Show generated files
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          echo "Generated atlas:"
+          ls -lh game.atlas
+
+          echo ""
+          echo "Generated texture:"
+          ls -lh game.png
+
+          echo ""
+          echo "Git changes:"
+          git status --short
 
       - name: Remove Unciv executable
         if: always()
         shell: bash
-        run: rm -f Unciv.jar
+        run: |
+          rm -f Unciv.jar
 
       - name: Create Pull Request
-        if: always()
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v8
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ github.token }}
           base: main
           branch: unciv-autoupdate
           delete-branch: true
-          commit-message: "Autoupdate"
+          commit-message: "Autoupdate Unciv mod"
           title: "Autoupdate Unciv mod"
           body: |
             Automated Unciv mod update.
-            This workflow downloads the latest Unciv release and runs mod-ci.
+
+            This workflow:
+            - Compresses PNG images
+            - Rebuilds game.atlas
+            - Rebuilds game.png
+            - Validates the Unciv mod
+            - Verifies Pemanah Beruntun and Prabu are included in game.atlas
