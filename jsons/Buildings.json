@@ -110,12 +110,13 @@
   },
   {
     "name": "Baháʼí Lotus Temple",
-    "_mergeAction": {
-      "action": "REMOVE_FIELD"
-    },
-    "requiredTech": "Pharmaceuticals",
+    "isWonder": true,
+    "happiness": 2,
+    "culture": 1,
     "uniques": [
-      "Only available <in cities not following a [your] religion>"
-    ]
+      "[+1 Culture, +1 Faith] per [3] population [in all cities] <in cities not following a [your] religion>",
+      "Provides [3] [Tourism] <after discovering [Flight]> <if [Nobles and Merchants] is enabled>"
+    ],
+    "requiredTech": "Pharmaceuticals"
   }
 ]
