@@ -103,6 +103,7 @@
   },
   {
     "name": "Money Laundry",
+    "cost": 300,
     "happiness": 10,
     "maintenance": 50000,
     "requiredTech": "Akulturasi Masyarakat"
