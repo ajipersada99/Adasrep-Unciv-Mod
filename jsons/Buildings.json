@@ -24,9 +24,9 @@
   {
     "name": "Balai Kesejahteraan",
     "cost": 300,
-    "happiness": 50,
+    "happiness": 25,
     "hurryCostModifier": 25,
-    "maintenance": 10,
+    "maintenance": 5,
     "requiredTech": "Archery"
   },
   {
@@ -99,6 +99,21 @@
       {
         "text": "A community tradition based on mutual cooperation, strengthening production, food, wealth, and happiness."
       }
+    ]
+  },
+  {
+    "name": "Money Laundry",
+    "happiness": 10,
+    "maintenance": 50000,
+    "requiredTech": "Akulturasi Masyarakat"
+  },
+  {
+    "name": "Baháʼí Lotus Temple",
+    "_mergeAction": {
+      "action": "REMOVE_FIELD"
+    },
+    "uniques": [
+      "Only available <in cities not following a [your] religion>"
     ]
   }
 ]
