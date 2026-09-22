@@ -1,0 +1,129 @@
+[
+  {
+    "name": "Peradaban",
+    "era": "Ancient era",
+    "policies": [
+      {
+        "name": "Kehidupan",
+        "row": 1,
+        "column": 2,
+        "uniques": [
+          "[+10]% Food [in all cities]",
+          "[+10]% Gold [in all cities]"
+        ]
+      },
+      {
+        "name": "Keberlangsungan",
+        "row": 2,
+        "column": 2,
+        "requires": [
+          "Kehidupan"
+        ],
+        "uniques": [
+          "[+10]% Production [in all cities]",
+          "[+10] Happiness [in all cities]"
+        ]
+      },
+      {
+        "name": "Perkembangan",
+        "row": 3,
+        "column": 2,
+        "requires": [
+          "Keberlangsungan"
+        ],
+        "uniques": [
+          "[+10]% Culture [in all cities]",
+          "[+10]% Science [in all cities]"
+        ]
+      },
+      {
+        "name": "Peradaban Complete",
+        "uniques": [
+          "[+50]% Golden Age length"
+        ]
+      }
+    ],
+    "uniques": [
+      "[+50] Gold [in capital]",
+      "[+5] Happiness [in capital]",
+      "[+5] Culture [in capital]",
+      "[+5] Science [in capital]",
+      "[+5] Production [in capital]",
+      "[+5] Food [in capital]"
+    ]
+  },
+  {
+    "name": "Digital World",
+    "era": "Information era",
+    "policies": [
+      {
+        "name": "Sosial Media",
+        "row": 1,
+        "column": 2,
+        "uniques": [
+          "[+100]% Culture [in all cities]",
+          "[+100]% Science [in all cities]"
+        ]
+      },
+      {
+        "name": "Entertainment",
+        "row": 2,
+        "column": 2,
+        "requires": [
+          "Sosial Media"
+        ],
+        "uniques": [
+          "[+25] Happiness [in all cities]"
+        ]
+      },
+      {
+        "name": "Tuntutan",
+        "row": 3,
+        "column": 2,
+        "requires": [
+          "Entertainment"
+        ],
+        "uniques": [
+          "[+10 Happiness] from every [Courthouse]"
+        ]
+      },
+      {
+        "name": "Keamanan Nasional",
+        "row": 4,
+        "column": 2,
+        "requires": [
+          "Tuntutan"
+        ],
+        "uniques": [
+          "[Military] units gain the [Nationalism] promotion"
+        ]
+      },
+      {
+        "name": "Agresi Militer",
+        "row": 5,
+        "column": 2,
+        "requires": [
+          "Keamanan Nasional"
+        ],
+        "uniques": [
+          "[Military] units gain the [Intervention] promotion"
+        ]
+      },
+      {
+        "name": "Digital World Complete",
+        "uniques": [
+          "[+50]% Golden Age length",
+          "[+100]% Strength <for [Military] units> <during a Golden Age>"
+        ]
+      }
+    ],
+    "uniques": [
+      "[+10]% Food [in capital]",
+      "[+10]% Production [in capital]",
+      "[+10]% Gold [in capital]",
+      "[+10]% Culture [in capital]",
+      "[+10]% Science [in capital]",
+      "[+10]% Faith [in capital]"
+    ]
+  }
+]
