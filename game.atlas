@@ -1,47 +1,75 @@
 
 game.png
-size: 512, 512
+size: 1024, 512
 format: RGBA8888
 filter: MipMapLinearLinear, MipMapLinearLinear
 repeat: none
+BuildingIcon/Baricade
+  rotate: false
+  xy: 4, 4
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
 NationIcons/Adasrep Federation
   rotate: false
-  xy: 4, 148
+  xy: 4, 212
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
+UnitIcons/Pemanah Beruntun
+  rotate: false
+  xy: 268, 268
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+UnitIcons/Prabu
+  rotate: false
+  xy: 476, 268
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
 UnitPromotionIcons/Command
   rotate: false
-  xy: 4, 12
+  xy: 684, 340
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 UnitPromotionIcons/Conquer
   rotate: false
-  xy: 268, 276
+  xy: 820, 340
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 UnitPromotionIcons/Hold the Line
   rotate: false
-  xy: 140, 12
+  xy: 684, 204
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+UnitPromotionIcons/Orang Suci
+  rotate: false
+  xy: 820, 204
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 UnitPromotionIcons/Rapid Fire
   rotate: false
-  xy: 276, 140
+  xy: 212, 76
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 UnitPromotionIcons/Search and Find
   rotate: false
-  xy: 276, 4
+  xy: 348, 132
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
