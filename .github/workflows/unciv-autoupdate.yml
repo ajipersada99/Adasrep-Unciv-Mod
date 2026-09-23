@@ -1,17 +1,17 @@
 name: Build Unciv Atlas
 
 on:
+  workflow_dispatch:
+
   push:
     branches:
       - main
-
-  workflow_dispatch:
 
 permissions:
   contents: write
 
 concurrency:
-  group: unciv-atlas
+  group: build-atlas
   cancel-in-progress: true
 
 jobs:
@@ -20,25 +20,25 @@ jobs:
     timeout-minutes: 20
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
       - name: Setup Java 17
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: "17"
 
-      - name: Download Unciv 4.22.0
+      - name: Download Unciv 4.22.1
         shell: bash
         run: |
           set -euo pipefail
 
-          UNCIV_URL="$(
+          URL="$(
             curl -fsSL --retry 3 --retry-delay 2 \
-              https://api.github.com/repos/yairm210/Unciv/releases/tags/4.22.0 \
+              https://api.github.com/repos/yairm210/Unciv/releases/tags/4.22.1 \
             | jq -r '
               .assets[]
               | select(.name == "Unciv.jar")
@@ -47,13 +47,11 @@ jobs:
             | head -n 1
           )"
 
-          if [ -z "$UNCIV_URL" ] || [ "$UNCIV_URL" = "null" ]; then
-            echo "::error::Unciv.jar 4.22.0 tidak ditemukan."
-            exit 1
-          fi
+          test -n "$URL"
+          test "$URL" != "null"
 
           curl -fL --retry 3 --retry-delay 2 \
-            "$UNCIV_URL" \
+            "$URL" \
             -o Unciv.jar
 
           test -s Unciv.jar
@@ -64,110 +62,105 @@ jobs:
           set -euo pipefail
           java -jar Unciv.jar --version || true
 
+      - name: Check source unit icons
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          echo "Checking source PNG files..."
+
+          test -f "Images/UnitIcons/Pengintai Elit.png"
+          test -f "Images/UnitIcons/Pemanah Beruntun.png"
+          test -f "Images/UnitIcons/Prabu.png"
+
+          echo "Found:"
+          echo "- Images/UnitIcons/Pengintai Elit.png"
+          echo "- Images/UnitIcons/Pemanah Beruntun.png"
+          echo "- Images/UnitIcons/Prabu.png"
+
       - name: Pack Unciv texture atlas
         shell: bash
         run: |
           set -euo pipefail
 
-          if [ ! -d "Images" ]; then
-            echo "::error::Folder Images tidak ditemukan."
-            exit 1
-          fi
-
-          echo "Packing Images menjadi game.atlas dan game.png..."
+          echo "Running Unciv mod-ci..."
 
           java -jar Unciv.jar mod-ci
+
+          echo "Generated files:"
+          ls -lh game.atlas game.png
 
       - name: Verify generated atlas
         shell: bash
         run: |
           set -euo pipefail
 
-          echo "Memeriksa hasil atlas..."
+          test -f "game.atlas"
+          test -f "game.png"
 
-          if [ ! -f "game.atlas" ]; then
-            echo "::error::game.atlas TIDAK dibuat."
-            exit 1
-          fi
+          echo "Searching game.atlas..."
 
-          if [ ! -f "game.png" ]; then
-            echo "::error::game.png TIDAK dibuat."
-            exit 1
-          fi
+          echo ""
+          echo "Pengintai Elit:"
+          grep -F "UnitIcons/Pengintai Elit" game.atlas || true
 
-          echo "game.atlas ditemukan:"
-          ls -lh game.atlas
+          echo ""
+          echo "Pemanah Beruntun:"
+          grep -F "UnitIcons/Pemanah Beruntun" game.atlas || true
 
-          echo "game.png ditemukan:"
-          ls -lh game.png
+          echo ""
+          echo "Prabu:"
+          grep -F "UnitIcons/Prabu" game.atlas || true
 
-      - name: Verify Pengintai Elit icon
-        shell: bash
-        run: |
-          set -euo pipefail
+          echo ""
+          echo "========================================"
 
-          echo "Memeriksa UnitIcons/Pengintai Elit..."
-
-          if ! grep -Fq "UnitIcons/Pengintai Elit" game.atlas; then
-            echo "::error::Pengintai Elit TIDAK masuk ke game.atlas!"
+          if grep -Fq "UnitIcons/Pengintai Elit" game.atlas; then
+            echo "OK: Pengintai Elit masuk game.atlas."
+          else
+            echo "ERROR: Pengintai Elit TIDAK masuk game.atlas!"
             echo ""
             echo "Isi UnitIcons yang ditemukan:"
             grep -F "UnitIcons/" game.atlas || true
             exit 1
           fi
 
+          if grep -Fq "UnitIcons/Pemanah Beruntun" game.atlas; then
+            echo "OK: Pemanah Beruntun masuk game.atlas."
+          else
+            echo "ERROR: Pemanah Beruntun TIDAK masuk game.atlas!"
+            exit 1
+          fi
+
+          if grep -Fq "UnitIcons/Prabu" game.atlas; then
+            echo "OK: Prabu masuk game.atlas."
+          else
+            echo "ERROR: Prabu TIDAK masuk game.atlas!"
+            exit 1
+          fi
+
           echo "========================================"
-          echo "BERHASIL:"
-          echo "UnitIcons/Pengintai Elit ditemukan!"
-          echo "========================================"
-
-      - name: Verify other Adasrep unit icons
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          for ICON in \
-            "UnitIcons/Pemanah Beruntun" \
-            "UnitIcons/Prabu"
-          do
-            echo "Checking $ICON..."
-
-            if ! grep -Fq "$ICON" game.atlas; then
-              echo "::error::$ICON tidak ditemukan di game.atlas!"
-              exit 1
-            fi
-
-            echo "OK: $ICON"
-          done
+          echo "SEMUA ICON BERHASIL DIVERIFIKASI."
 
       - name: Show atlas information
         shell: bash
         run: |
-          set -euo pipefail
-
-          echo "========================================"
-          echo "ATLAS BERHASIL DIBUAT"
-          echo "========================================"
+          echo "game.atlas:"
+          ls -lh game.atlas
 
           echo ""
-          echo "Files:"
-          ls -lh game.atlas game.png
+          echo "game.png:"
+          ls -lh game.png
 
           echo ""
-          echo "Pengintai Elit:"
-          grep -A8 -B1 -F "UnitIcons/Pengintai Elit" game.atlas
+          echo "Atlases.json:"
+          if [ -f "Atlases.json" ]; then
+            cat Atlases.json
+          else
+            echo "Tidak ada Atlases.json"
+          fi
 
-          echo ""
-          echo "Git status:"
-          git status --short
-
-      - name: Remove Unciv
-        if: always()
-        shell: bash
-        run: |
-          rm -f Unciv.jar
-
-      - name: Commit atlas to main
+      - name: Commit generated atlas
         shell: bash
         run: |
           set -euo pipefail
@@ -175,7 +168,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add game.atlas game.png Atlases.json
+          git add game.atlas game.png Atlases.json 2>/dev/null || true
 
           if git diff --cached --quiet; then
             echo "Tidak ada perubahan atlas."
@@ -183,4 +176,9 @@ jobs:
           fi
 
           git commit -m "Update Unciv texture atlas [skip ci]"
-          git push origin main
+          git push origin HEAD:main
+
+      - name: Cleanup
+        if: always()
+        run: |
+          rm -f Unciv.jar
