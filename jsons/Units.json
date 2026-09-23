@@ -15,8 +15,9 @@
         ],
         "uniques": [
             "Can move immediately once bought",
-            "[+500]% Strength starting from Ancient era",
-            "[+500]% Strength starting from Modern era"
+            "[+500]% Strength <starting from [Ancient era]>",
+            "[+500]% Strength <starting from [Modern era]>",
+            "Can see over obstacles"
         ],
         "attackSound": "nonmetalhit",
         "civilopediaText": [
