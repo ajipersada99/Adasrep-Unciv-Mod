@@ -20,17 +20,17 @@ concurrency:
 
 jobs:
   unciv-autoupdate:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
       - name: Setup Java 17
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: "17"
@@ -44,10 +44,10 @@ jobs:
             curl -fsSL --retry 3 --retry-delay 2 \
               https://api.github.com/repos/shssoichiro/oxipng/releases/latest \
             | jq -r '
-                .assets[]
-                | select(.name | test("x86_64-unknown-linux-gnu.tar.gz$"))
-                | .browser_download_url
-              ' \
+              .assets[]
+              | select(.name | test("x86_64-unknown-linux-gnu.tar.gz$"))
+              | .browser_download_url
+            ' \
             | head -n 1
           )"
 
@@ -78,7 +78,6 @@ jobs:
           fi
 
           chmod +x "$OXIPNG_BIN"
-
           echo "OXIPNG_BIN=$OXIPNG_BIN" >> "$GITHUB_ENV"
 
       - name: Compress PNG images
@@ -96,28 +95,28 @@ jobs:
             -iname "*.png" \
             -print0 \
           | xargs -0 -r "$OXIPNG_BIN" \
-              --opt max \
-              --strip all \
-              --alpha
+            --opt max \
+            --strip all \
+            --alpha
 
-      - name: Download latest Unciv.jar
+      - name: Download Unciv 4.22.1
         shell: bash
         run: |
           set -euo pipefail
 
           UNCIV_URL="$(
             curl -fsSL --retry 3 --retry-delay 2 \
-              https://api.github.com/repos/yairm210/Unciv/releases/latest \
+              https://api.github.com/repos/yairm210/Unciv/releases/tags/4.22.1 \
             | jq -r '
-                .assets[]
-                | select(.name == "Unciv.jar")
-                | .browser_download_url
-              ' \
+              .assets[]
+              | select(.name == "Unciv.jar")
+              | .browser_download_url
+            ' \
             | head -n 1
           )"
 
           if [ -z "$UNCIV_URL" ] || [ "$UNCIV_URL" = "null" ]; then
-            echo "::error::Unciv.jar was not found."
+            echo "::error::Unciv.jar for version 4.22.1 was not found."
             exit 1
           fi
 
@@ -127,11 +126,16 @@ jobs:
 
           test -s Unciv.jar
 
+      - name: Show Unciv version
+        shell: bash
+        run: |
+          set -euo pipefail
+          java -jar Unciv.jar --version || true
+
       - name: Pack and validate Unciv mod
         shell: bash
         run: |
           set -euo pipefail
-
           java -jar Unciv.jar mod-ci
 
       - name: Verify required unit icons in atlas
@@ -150,12 +154,14 @@ jobs:
           fi
 
           echo "Checking Pemanah Beruntun..."
+
           if ! grep -Fq "UnitIcons/Pemanah Beruntun" game.atlas; then
             echo "::error::UnitIcons/Pemanah Beruntun is missing from game.atlas."
             exit 1
           fi
 
           echo "Checking Prabu..."
+
           if ! grep -Fq "UnitIcons/Prabu" game.atlas; then
             echo "::error::UnitIcons/Prabu is missing from game.atlas."
             exit 1
@@ -176,10 +182,12 @@ jobs:
           ls -lh game.atlas
 
           echo ""
+
           echo "Generated texture:"
           ls -lh game.png
 
           echo ""
+
           echo "Git changes:"
           git status --short
 
@@ -205,5 +213,5 @@ jobs:
             - Compresses PNG images
             - Rebuilds game.atlas
             - Rebuilds game.png
-            - Validates the Unciv mod
+            - Validates the Unciv mod using Unciv 4.22.1
             - Verifies Pemanah Beruntun and Prabu are included in game.atlas
