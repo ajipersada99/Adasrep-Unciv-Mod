@@ -4,7 +4,7 @@ size: 1024, 512
 format: RGBA8888
 filter: MipMapLinearLinear, MipMapLinearLinear
 repeat: none
-BuildingIcon/Baricade
+BuildingIcons/Baricade
   rotate: false
   xy: 4, 4
   size: 200, 200
@@ -25,51 +25,58 @@ UnitIcons/Pemanah Beruntun
   orig: 200, 200
   offset: 0, 0
   index: -1
-UnitIcons/Prabu
+UnitIcons/Pengintai Elit
   rotate: false
   xy: 476, 268
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: -1
+UnitIcons/Prabu
+  rotate: false
+  xy: 684, 268
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
 UnitPromotionIcons/Command
   rotate: false
-  xy: 684, 340
+  xy: 892, 340
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 UnitPromotionIcons/Conquer
   rotate: false
-  xy: 820, 340
+  xy: 892, 204
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 UnitPromotionIcons/Hold the Line
   rotate: false
-  xy: 684, 204
+  xy: 212, 76
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 UnitPromotionIcons/Orang Suci
   rotate: false
-  xy: 820, 204
+  xy: 348, 132
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 UnitPromotionIcons/Rapid Fire
   rotate: false
-  xy: 212, 76
+  xy: 484, 132
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 UnitPromotionIcons/Search and Find
   rotate: false
-  xy: 348, 132
+  xy: 620, 132
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
