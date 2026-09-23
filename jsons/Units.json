@@ -4,7 +4,7 @@
         "unitType": "Scout",
         "uniqueTo": "Adasrep Federation",
         "replaces": "Scout",
-        "movement": 2,
+        "movement": 5,
         "strength": 5,
         "cost": 25,
         "requiredTech": "Agriculture",
