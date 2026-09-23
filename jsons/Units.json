@@ -8,7 +8,6 @@
         "strength": 5,
         "cost": 25,
         "requiredTech": "Agriculture",
-        "obsoleteTech": "Scientific Theory",
         "upgradesTo": "Archer",
         "promotions": [
             "Ignore terrain cost"
