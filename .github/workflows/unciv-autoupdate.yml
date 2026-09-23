@@ -20,94 +20,116 @@ jobs:
 
     steps:
 
-      # ============================================================
-      # 1. CHECKOUT
-      # ============================================================
+      # ==========================================================
+      # 1. CHECKOUT REPOSITORY
+      # ==========================================================
       - name: Checkout repository
         uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
-      # ============================================================
+      # ==========================================================
       # 2. JAVA 17
-      # ============================================================
+      # ==========================================================
       - name: Setup Java 17
         uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: "17"
 
-      # ============================================================
+      # ==========================================================
       # 3. DOWNLOAD UNCIV 4.22.1
-      # ============================================================
+      # ==========================================================
       - name: Download Unciv 4.22.1
         run: |
+          set -e
+
+          echo "Downloading Unciv 4.22.1..."
+
           wget -q \
             -O Unciv.jar \
-            https://github.com/yairm210/Unciv/releases/download/4.22.1/Unciv.jar
+            "https://github.com/yairm210/Unciv/releases/download/4.22.1/Unciv.jar"
 
           test -s Unciv.jar
 
-          echo "Unciv 4.22.1 berhasil di-download."
+          echo "Unciv berhasil di-download:"
           ls -lh Unciv.jar
 
-      # ============================================================
+      # ==========================================================
       # 4. VERIFY SOURCE FILES
-      # ============================================================
+      # ==========================================================
       - name: Verify source files
         run: |
-          echo "=== UnitIcons ==="
+          set -e
+
+          echo "=========================================="
+          echo "CEK UNIT ICONS"
+          echo "=========================================="
+
+          test -d Images/UnitIcons
+
           find Images/UnitIcons \
             -maxdepth 1 \
             -type f \
             -print
 
           echo
-          echo "=== Cek Pengintai Elit ==="
+          echo "=========================================="
+          echo "CEK PENGINTAI ELIT"
+          echo "=========================================="
 
           test -f "Images/UnitIcons/Pengintai Elit.png"
 
-          echo "Pengintai Elit.png ditemukan."
+          echo "OK: Pengintai Elit.png ditemukan."
 
           echo
-          echo "=== Cek Pemanah Beruntun ==="
+          echo "=========================================="
+          echo "CEK PEMANAH BERUNTUN"
+          echo "=========================================="
 
           test -f "Images/UnitIcons/Pemanah Beruntun.png"
 
-          echo "Pemanah Beruntun.png ditemukan."
+          echo "OK: Pemanah Beruntun.png ditemukan."
 
           echo
-          echo "=== Cek Prabu ==="
+          echo "=========================================="
+          echo "CEK PRABU"
+          echo "=========================================="
 
           test -f "Images/UnitIcons/Prabu.png"
 
-          echo "Prabu.png ditemukan."
+          echo "OK: Prabu.png ditemukan."
 
           echo
-          echo "=== Git tracked filenames ==="
+          echo "=========================================="
+          echo "NAMA FILE YANG DILACAK GIT"
+          echo "=========================================="
 
-          git ls-files | grep 'Images/UnitIcons/'
+          git ls-files | grep -F "Images/UnitIcons/"
 
-      # ============================================================
+      # ==========================================================
       # 5. INSTALL IMAGEMAGICK
-      # ============================================================
-      # INI YANG KURANG PADA WORKFLOW SEBELUMNYA.
-      # Error sebelumnya:
-      # convert: command not found
-      # ============================================================
+      # ==========================================================
       - name: Install ImageMagick
         run: |
+          set -e
+
+          echo "Installing ImageMagick..."
+
           sudo apt-get update
           sudo apt-get install -y imagemagick
 
-          echo "=== ImageMagick ==="
+          echo
+          echo "ImageMagick version:"
           convert --version
 
-      # ============================================================
+      # ==========================================================
       # 6. NORMALIZE PENGINTAI ELIT PNG
-      # ============================================================
+      # ==========================================================
       - name: Normalize Pengintai Elit PNG
         run: |
+          set -e
+
           echo "Menormalkan PNG Pengintai Elit..."
 
           convert \
@@ -120,171 +142,18 @@ jobs:
             "Images/UnitIcons/Pengintai Elit.normalized.png" \
             "Images/UnitIcons/Pengintai Elit.png"
 
+          echo
           echo "PNG berhasil dinormalisasi."
 
           echo
+          echo "Informasi PNG:"
           file "Images/UnitIcons/Pengintai Elit.png"
 
-      # ============================================================
-      # 7. SHOW IMAGE INFORMATION
-      # ============================================================
-      - name: Inspect unit icon PNGs
-        run: |
-          echo "=== Pengintai Elit ==="
           identify "Images/UnitIcons/Pengintai Elit.png"
 
-          echo
-          echo "=== Pemanah Beruntun ==="
-          identify "Images/UnitIcons/Pemanah Beruntun.png"
-
-          echo
-          echo "=== Prabu ==="
-          identify "Images/UnitIcons/Prabu.png"
-
-      # ============================================================
-      # 8. REMOVE OLD GENERATED ATLAS
-      # ============================================================
-      - name: Remove old atlas before rebuilding
+      # ==========================================================
+      # 7. INSPECT SEMUA ICON ADASREP
+      # ==========================================================
+      - name: Inspect Adasrep unit icons
         run: |
-          echo "Menghapus atlas lama..."
-
-          rm -f game.atlas
-          rm -f game.png
-
-          echo
-          echo "File atlas lama:"
-          ls -la game.atlas game.png 2>/dev/null || true
-
-          echo
-          echo "Atlas lama sudah dihapus."
-
-      # ============================================================
-      # 9. BUILD ATLAS DENGAN UNCIV
-      # ============================================================
-      - name: Pack Unciv texture atlas
-        run: |
-          echo "Menjalankan Unciv 4.22.1 mod-ci..."
-
-          java -jar Unciv.jar mod-ci
-
-      # ============================================================
-      # 10. VERIFY GAME.ATLAS EXISTS
-      # ============================================================
-      - name: Verify generated atlas exists
-        run: |
-          echo "=== Generated files ==="
-
-          test -f game.atlas
-          test -f game.png
-
-          echo
-          ls -lh game.atlas game.png
-
-      # ============================================================
-      # 11. VERIFY PENGINTAI ELIT
-      # ============================================================
-      - name: Verify Pengintai Elit
-        run: |
-          echo "Mencari Pengintai Elit di game.atlas..."
-
-          grep -F "UnitIcons/Pengintai Elit" game.atlas
-
-          echo
-          echo "OK: Pengintai Elit MASUK game.atlas."
-
-      # ============================================================
-      # 12. VERIFY SEMUA ICON ADASREP
-      # ============================================================
-      - name: Verify all Adasrep unit icons
-        run: |
-          echo "=== Pengintai Elit ==="
-          grep -F "UnitIcons/Pengintai Elit" game.atlas
-
-          echo
-          echo "=== Pemanah Beruntun ==="
-          grep -F "UnitIcons/Pemanah Beruntun" game.atlas
-
-          echo
-          echo "=== Prabu ==="
-          grep -F "UnitIcons/Prabu" game.atlas
-
-          echo
-          echo "SEMUA ICON ADASREP BERHASIL MASUK GAME.ATLAS."
-
-      # ============================================================
-      # 13. SHOW ATLAS ENTRIES
-      # ============================================================
-      - name: Show Adasrep atlas entries
-        run: |
-          echo "=== Adasrep entries dalam game.atlas ==="
-
-          grep -E \
-            "UnitIcons/(Pengintai Elit|Pemanah Beruntun|Prabu)" \
-            game.atlas
-
-      # ============================================================
-      # 14. VERIFY UNITS.JSON
-      # ============================================================
-      - name: Verify Pengintai Elit never obsolete
-        run: |
-          echo "=== Memeriksa Units.json ==="
-
-          python3 - <<'PY'
-          import json
-
-          with open("jsons/Units.json", "r", encoding="utf-8") as f:
-              units = json.load(f)
-
-          unit = next(
-              u for u in units
-              if u.get("name") == "Pengintai Elit"
-          )
-
-          print("Pengintai Elit ditemukan.")
-
-          if "obsoleteTech" in unit:
-              print(
-                  "ERROR: Pengintai Elit masih memiliki obsoleteTech:",
-                  unit["obsoleteTech"]
-              )
-              raise SystemExit(1)
-
-          print(
-              "OK: Pengintai Elit TIDAK memiliki obsoleteTech."
-          )
-          print(
-              "Pengintai Elit tidak akan dibuat usang oleh "
-              "Scientific Theory dari JSON unit ini."
-          )
-          PY
-
-      # ============================================================
-      # 15. SHOW GIT STATUS
-      # ============================================================
-      - name: Show generated files
-        run: |
-          echo "=== Git status ==="
-          git status --short
-
-          echo
-          echo "=== Atlas ==="
-          ls -lh game.atlas game.png
-
-      # ============================================================
-      # 16. COMMIT GENERATED ATLAS
-      # ============================================================
-      - name: Commit generated atlas
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          git add game.atlas
-          git add game.png
-
-          if git diff --cached --quiet; then
-            echo "Tidak ada perubahan atlas."
-            exit 0
-          fi
-
-          git commit -m "Rebuild Unciv texture atlas [skip ci]"
-          git push
+          set -
