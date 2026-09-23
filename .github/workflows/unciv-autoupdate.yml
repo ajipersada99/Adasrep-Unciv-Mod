@@ -36,7 +36,7 @@ jobs:
         run: |
           set -euo pipefail
 
-          URL="$(
+          UNCIV_URL="$(
             curl -fsSL --retry 3 --retry-delay 2 \
               https://api.github.com/repos/yairm210/Unciv/releases/tags/4.22.1 \
             | jq -r '
@@ -47,118 +47,189 @@ jobs:
             | head -n 1
           )"
 
-          test -n "$URL"
-          test "$URL" != "null"
+          if [ -z "$UNCIV_URL" ] || [ "$UNCIV_URL" = "null" ]; then
+            echo "::error::Unciv 4.22.1 tidak ditemukan."
+            exit 1
+          fi
 
           curl -fL --retry 3 --retry-delay 2 \
-            "$URL" \
+            "$UNCIV_URL" \
             -o Unciv.jar
 
           test -s Unciv.jar
 
-      - name: Show Unciv version
-        shell: bash
-        run: |
-          set -euo pipefail
-          java -jar Unciv.jar --version || true
-
-      - name: Check source unit icons
+      - name: Verify source files
         shell: bash
         run: |
           set -euo pipefail
 
-          echo "Checking source PNG files..."
+          echo "Memeriksa file sumber..."
 
           test -f "Images/UnitIcons/Pengintai Elit.png"
           test -f "Images/UnitIcons/Pemanah Beruntun.png"
           test -f "Images/UnitIcons/Prabu.png"
 
-          echo "Found:"
-          echo "- Images/UnitIcons/Pengintai Elit.png"
-          echo "- Images/UnitIcons/Pemanah Beruntun.png"
-          echo "- Images/UnitIcons/Prabu.png"
+          echo "Semua file PNG ditemukan."
+
+          echo ""
+          echo "Pengintai Elit:"
+          file "Images/UnitIcons/Pengintai Elit.png"
+
+      - name: Normalize Pengintai Elit PNG
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          echo "Menormalkan PNG Pengintai Elit..."
+
+          mkdir -p "$RUNNER_TEMP/pengintai"
+
+          cp "Images/UnitIcons/Pengintai Elit.png" \
+             "$RUNNER_TEMP/pengintai/source.png"
+
+          convert \
+            "$RUNNER_TEMP/pengintai/source.png" \
+            -background none \
+            -alpha on \
+            PNG32:"Images/UnitIcons/Pengintai Elit.png"
+
+          echo "PNG setelah normalisasi:"
+          file "Images/UnitIcons/Pengintai Elit.png"
+
+      - name: Install oxipng
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          OXIPNG_URL="$(
+            curl -fsSL --retry 3 --retry-delay 2 \
+              https://api.github.com/repos/shssoichiro/oxipng/releases/latest \
+            | jq -r '
+              .assets[]
+              | select(.name | test("x86_64-unknown-linux-gnu.tar.gz$"))
+              | .browser_download_url
+            ' \
+            | head -n 1
+          )"
+
+          test -n "$OXIPNG_URL"
+          test "$OXIPNG_URL" != "null"
+
+          mkdir -p "$RUNNER_TEMP/oxipng"
+
+          curl -fL --retry 3 --retry-delay 2 \
+            "$OXIPNG_URL" \
+            -o "$RUNNER_TEMP/oxipng/oxipng.tar.gz"
+
+          tar -xzf "$RUNNER_TEMP/oxipng/oxipng.tar.gz" \
+            -C "$RUNNER_TEMP/oxipng"
+
+          OXIPNG_BIN="$(
+            find "$RUNNER_TEMP/oxipng" \
+              -type f \
+              -name oxipng \
+              | head -n 1
+          )"
+
+          test -n "$OXIPNG_BIN"
+
+          chmod +x "$OXIPNG_BIN"
+
+          echo "OXIPNG_BIN=$OXIPNG_BIN" >> "$GITHUB_ENV"
+
+      - name: Compress images
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          find Images \
+            -type f \
+            -iname "*.png" \
+            -print0 \
+          | xargs -0 -r "$OXIPNG_BIN" \
+            --opt max \
+            --strip all
+
+      - name: Remove old atlas before rebuilding
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          echo "Menghapus atlas lama..."
+
+          rm -f game.atlas
+          rm -f game.png
+
+          echo "Atlas lama sudah dihapus."
 
       - name: Pack Unciv texture atlas
         shell: bash
         run: |
           set -euo pipefail
 
-          echo "Running Unciv mod-ci..."
+          echo "Menjalankan Unciv 4.22.1 mod-ci..."
 
           java -jar Unciv.jar mod-ci
 
-          echo "Generated files:"
-          ls -lh game.atlas game.png
+          echo ""
+          echo "File hasil packing:"
 
-      - name: Verify generated atlas
+          test -f game.atlas
+          test -f game.png
+
+          ls -lh game.atlas
+          ls -lh game.png
+
+      - name: Verify Pengintai Elit
         shell: bash
         run: |
           set -euo pipefail
 
-          test -f "game.atlas"
-          test -f "game.png"
-
-          echo "Searching game.atlas..."
-
-          echo ""
-          echo "Pengintai Elit:"
-          grep -F "UnitIcons/Pengintai Elit" game.atlas || true
-
-          echo ""
-          echo "Pemanah Beruntun:"
-          grep -F "UnitIcons/Pemanah Beruntun" game.atlas || true
-
-          echo ""
-          echo "Prabu:"
-          grep -F "UnitIcons/Prabu" game.atlas || true
-
-          echo ""
+          echo "========================================"
+          echo "MEMERIKSA PENGINTAI ELIT"
           echo "========================================"
 
           if grep -Fq "UnitIcons/Pengintai Elit" game.atlas; then
-            echo "OK: Pengintai Elit masuk game.atlas."
+            echo "OK: UnitIcons/Pengintai Elit ditemukan."
           else
-            echo "ERROR: Pengintai Elit TIDAK masuk game.atlas!"
+            echo "ERROR: UnitIcons/Pengintai Elit TIDAK ditemukan!"
             echo ""
-            echo "Isi UnitIcons yang ditemukan:"
+            echo "Semua UnitIcons yang ada:"
             grep -F "UnitIcons/" game.atlas || true
             exit 1
           fi
 
-          if grep -Fq "UnitIcons/Pemanah Beruntun" game.atlas; then
-            echo "OK: Pemanah Beruntun masuk game.atlas."
-          else
-            echo "ERROR: Pemanah Beruntun TIDAK masuk game.atlas!"
-            exit 1
-          fi
+      - name: Verify all Adasrep unit icons
+        shell: bash
+        run: |
+          set -euo pipefail
 
-          if grep -Fq "UnitIcons/Prabu" game.atlas; then
-            echo "OK: Prabu masuk game.atlas."
-          else
-            echo "ERROR: Prabu TIDAK masuk game.atlas!"
-            exit 1
-          fi
+          grep -Fq "UnitIcons/Pengintai Elit" game.atlas
+          grep -Fq "UnitIcons/Pemanah Beruntun" game.atlas
+          grep -Fq "UnitIcons/Prabu" game.atlas
 
+          echo ""
           echo "========================================"
-          echo "SEMUA ICON BERHASIL DIVERIFIKASI."
+          echo "SEMUA ICON ADASREP DITEMUKAN"
+          echo "========================================"
+
+          echo "UnitIcons/Pengintai Elit"
+          echo "UnitIcons/Pemanah Beruntun"
+          echo "UnitIcons/Prabu"
 
       - name: Show atlas information
         shell: bash
         run: |
-          echo "game.atlas:"
+          echo "=== game.atlas ==="
           ls -lh game.atlas
 
           echo ""
-          echo "game.png:"
+          echo "=== game.png ==="
           ls -lh game.png
 
           echo ""
-          echo "Atlases.json:"
-          if [ -f "Atlases.json" ]; then
-            cat Atlases.json
-          else
-            echo "Tidak ada Atlases.json"
-          fi
+          echo "=== UnitIcons ==="
+          grep -F "UnitIcons/" game.atlas || true
 
       - name: Commit generated atlas
         shell: bash
@@ -168,17 +239,23 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add game.atlas game.png Atlases.json 2>/dev/null || true
+          git add \
+            game.atlas \
+            game.png \
+            Atlases.json \
+            "Images/UnitIcons/Pengintai Elit.png"
 
           if git diff --cached --quiet; then
-            echo "Tidak ada perubahan atlas."
+            echo "Tidak ada perubahan."
             exit 0
           fi
 
-          git commit -m "Update Unciv texture atlas [skip ci]"
+          git commit -m "Rebuild Unciv atlas"
+
           git push origin HEAD:main
 
-      - name: Cleanup
+      - name: Remove Unciv
         if: always()
+        shell: bash
         run: |
           rm -f Unciv.jar
