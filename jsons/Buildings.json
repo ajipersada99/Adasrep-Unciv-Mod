@@ -76,7 +76,7 @@
     "uniques": [
       "[-50]% unhappiness from the number of cities",
       "[-50]% unhappiness from [Population] [in all cities]",
-      "[5] Happiness from each type of luxury resource"
+      "[10] Happiness from each type of luxury resource"
     ],
     "civilopediaText": [
       {
