@@ -4,6 +4,8 @@
   "modUrl": "",
   "defaultBranch": "master",
   "buildingsToRemove": [
-    "Baháʼí Lotus Temple"
+    "Baháʼí Lotus Temple",
+    "Dyrehavsbakken",
+    "Kansai International Airport"
   ]
 }
