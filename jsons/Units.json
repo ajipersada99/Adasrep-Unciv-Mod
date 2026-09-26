@@ -55,11 +55,11 @@
         "replaces": "Great General",
         "movement": 5,
         "uniques": [
-            "Empire enters a [8]-turn Golden Age",
+            "Empire enters a [8]-turn Golden Age <by consuming this unit>",
             "[+50]% Strength bonus for [Military] units within [5] tiles",
             "All adjacent units heal [+50] HP when healing",
             "[+50] HP when healing",
-            "Can instantly construct a [Citadel] improvement",
+            "Can instantly construct a [Citadel] improvement <by consuming this unit>",
             "Can be earned through combat <for [Land] units>",
             "Is part of Great Person group [Prabu]",
             "Great Person - [War]",
