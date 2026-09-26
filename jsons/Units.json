@@ -29,7 +29,7 @@
         "unitType": "Archery",
         "uniqueTo": "Adasrep Federation",
         "replaces": "Composite Bowman",
-        "movement": 3,
+        "movement": 7,
         "strength": 10,
         "rangedStrength": 15,
         "range": 3,
