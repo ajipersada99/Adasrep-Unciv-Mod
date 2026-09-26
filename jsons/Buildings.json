@@ -104,7 +104,7 @@
   {
     "name": "Money Laundry",
     "happiness": 10,
-    "maintenance": 25000,
+    "maintenance": 40000,
     "requiredTech": "Akulturasi Masyarakat"
   }
 ]
